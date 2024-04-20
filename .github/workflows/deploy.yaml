@@ -1,31 +1,55 @@
-#name: Deploy
-#on:
-#  push:
-#    branches: ['main']
-#jobs:
-#  deploy:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Install Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20.x'
-#
-#      - name: Install Dependencies
-#        run: |
-#          npm i
-#
-#      - name: Run Check
-#        run: |
-#          npm run build
-#
-#      - uses: actions/checkout@v4
-#      - name: Deploy
-#        uses: zcloud-ws/zcloud-deploy-action@main
-#        with:
-#          # Add your ZCLOUD_USER_TOKEN to your repository secrets
-#          user-token: ${{ secrets.ZCLOUD_USER_TOKEN }}
-#          env: "your-app-env-name"
+# Fluxo de trabalho simples para implementar
+# conteúdo estático na GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Executa sobre as atualizações mirando o ramo padrão
+  push:
+    branches: ['main']
+
+  # Permite-nos executar este fluxo de trabalho manualmente
+  # a partir da aba de Ações (ou `Actions`)
+  workflow_dispatch:
+
+# Define as permissões do GITHUB_TOKEN para permitir
+# a implementação na GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permitir uma implementação simultânea
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  # Único trabalho de implementação
+  # uma vez que apenas estamos implementando
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Carregar a pasta de distribuição
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
