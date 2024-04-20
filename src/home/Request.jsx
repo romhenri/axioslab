@@ -1,16 +1,15 @@
 import React from "react";
 import axios from "axios";
 
-const source = axios.CancelToken.source();
-
 export const Request = () => {
   const [color, setColor] = React.useState("red");
+  const [sources, setSources] = React.useState([]);
 
   return (
     <section
     className=""
   >
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 m-8">
       <div
       className={`w-12 h-12 rounded-full ${
         color === "red" ? "bg-red-500" 
@@ -24,10 +23,12 @@ export const Request = () => {
     
     <button
       className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded
-      active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600
+      active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs
       "
       onClick={() => {
         setColor("yellow");
+        const source = axios.CancelToken.source();
+        setSources(prevSources => [...prevSources, source]);
         axios.get(
           "https://hub.dummyapis.com/delay?seconds=3",
           {cancelToken: source.token}
@@ -49,8 +50,12 @@ export const Request = () => {
       Request
     </button>
     <button
+      className="py-2 px-4 border text-xs"
       onClick={() => {
-        source.cancel('Operation canceled by the user.');
+        sources.forEach(source => {
+          source.cancel('Operation canceled by the user.');
+        });
+        setSources([]);
       }}
     >
       Cancel
