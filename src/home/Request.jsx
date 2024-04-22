@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
+import StatusLight from "../components/StatusLight";
 
 export const Request = () => {
-  const [color, setColor] = React.useState("red");
+  const [status, setStatus] = React.useState("red");
   const [sources, setSources] = React.useState([]);
 
   return (
@@ -10,23 +11,18 @@ export const Request = () => {
     className=""
   >
     <div className="flex flex-col items-center gap-4 m-8">
-      <div
-      className={`w-12 h-12 rounded-full ${
-        color === "red" ? "bg-red-500" 
-        : color === "yellow" ? "bg-yellow-500"
-        : color === "orange" ? "bg-orange-500"
-        : color === "green" ? "bg-green-500" 
-        : "bg-red-500"
-      }`}
-      >
-      </div>
+
+    <StatusLight
+      status={status}
+      size={9}
+    />
     
     <button
       className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded
       active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs
       "
       onClick={() => {
-        setColor("yellow");
+        setStatus("loading");
         const source = axios.CancelToken.source();
         setSources(prevSources => [...prevSources, source]);
         axios.get(
@@ -36,11 +32,11 @@ export const Request = () => {
 
         .then((response) => {
           console.log(response);
-          setColor("green");
+          setStatus("success");
         })
         .catch(thrown => {
           if (axios.isCancel(thrown)) {
-            setColor("orange");
+            setStatus("canceled");
           } else {
             // Handle other errors
           }
@@ -50,7 +46,7 @@ export const Request = () => {
       Request
     </button>
     <button
-      className="py-2 px-4 border text-xs"
+      className="py-2 px-4 border text-xs bg-slate-400"
       onClick={() => {
         sources.forEach(source => {
           source.cancel('Operation canceled by the user.');
