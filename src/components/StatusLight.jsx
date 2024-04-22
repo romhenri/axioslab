@@ -18,6 +18,10 @@ const sizeMap = {
   10: "w-24 h-24",
   11: "w-28 h-28",
   12: "w-32 h-32",
+  13: "w-36 h-36",
+  14: "w-40 h-40",
+  15: "w-44 h-44",
+  16: "w-48 h-48",
 };
 
 const StatusLight = (
@@ -32,17 +36,20 @@ const StatusLight = (
 
   return (
     <div
-      className={`${sizeClass} rounded-full ${colorClass}`}
+      className={`
+      flex justify-center items-center
+      ${sizeClass} rounded-full ${colorClass}
+      `}
       >
         {
           statusCode && (
-            <span className="sr-only">
+            <span className="text-white">
               {statusCode}
             </span>
           )
         }
     </div>
   )
-}
+};
 
-export default StatusLight
+export default StatusLight;
