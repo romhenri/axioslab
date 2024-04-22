@@ -4,7 +4,7 @@ import Button from "../components/base/Button";
 import StatusLight from "../components/StatusLight";
 
 export const Request = () => {
-  const [status, setStatus] = React.useState("red");
+  const [status, setStatus] = React.useState("");
   const [statusCode, setStatusCode] = React.useState(null);
   const [sources, setSources] = React.useState([]);
 
@@ -57,9 +57,7 @@ export const Request = () => {
           });
           setSources([]);
         }}
-      >
-        Cancel
-      </Button>
+      />
     </div>
   </section>
   )

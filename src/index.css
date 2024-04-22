@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.logo {
+  fill: #b8bbbe;
+}
+.logo:hover {
+  fill: #8eb1d3;
+  transition: .2s;
+}
+.logo:active {
+  fill: #388dd3;
+  transition: .2s;
+  scale: .95;
+}
