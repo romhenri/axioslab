@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Button from "../components/base/Button";
 import StatusLight from "../components/StatusLight";
 
 export const Request = () => {
@@ -19,10 +20,8 @@ export const Request = () => {
           size={9}
         />
         
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded
-          active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs
-          "
+        <Button 
+          text="Request"
           onClick={() => {
             setStatus("loading");
             setStatusCode();
@@ -48,11 +47,10 @@ export const Request = () => {
               }
             });
           }}
-      >
-        Request
-      </button>
-      <button
-        className="py-2 px-4 border text-xs bg-slate-400"
+        />
+      <Button
+        text="Cancel"
+        type="secondary"
         onClick={() => {
           sources.forEach(source => {
             source.cancel('Operation canceled by the user.');
@@ -61,7 +59,7 @@ export const Request = () => {
         }}
       >
         Cancel
-      </button>
+      </Button>
     </div>
   </section>
   )
