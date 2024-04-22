@@ -1,3 +1,4 @@
 export const RoutePaths = {
-  HOME: '/',
+  Default: '/',
+  useCancelToken: '/useCancelToken', 
 };

@@ -14,3 +14,10 @@
   transition: .2s;
   scale: .95;
 }
+
+.navlink{
+  @apply p-2 rounded border border-transparent;
+}
+.navlink.active {
+  @apply  border border-blue-400 text-blue-400;
+}
