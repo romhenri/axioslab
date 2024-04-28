@@ -1,5 +1,5 @@
 import {Suspense} from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 import {Router} from './general/Router.jsx';
 import {Loading} from './components/Loading.jsx';
 import NavBar from './components/struct/NavBar.jsx';
@@ -9,7 +9,7 @@ export const PageWithHeader = ({children}) => (
 );
 
 export const App = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Suspense
       fallback={
         <PageWithHeader>
@@ -24,5 +24,5 @@ export const App = () => (
           </div>
         </div>
     </Suspense>
-  </BrowserRouter>
+  </HashRouter>
 );
