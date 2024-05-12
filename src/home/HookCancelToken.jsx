@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
 import Button from "../components/base/Button";
+import MsgBox from "../components/base/MensBox";
 import StatusLight from "../components/StatusLight";
 import { useCancelToken } from "../hooks/useCancelToken";
 
 export const Request = () => {
   const [status, setStatus] = React.useState("");
   const [statusCode, setStatusCode] = React.useState(null);
+  const [message, setMessage] = React.useState("");
   const { newCancelToken, isCancel, cancelAll } = useCancelToken();
 
   return (
@@ -21,6 +23,14 @@ export const Request = () => {
           size={9}
         />
         
+        {
+          message && (
+            <MsgBox>
+              {message}
+            </MsgBox>
+          )
+        }
+
         <Button 
           text="Request"
           onClick={() => {
@@ -43,8 +53,7 @@ export const Request = () => {
                 console.log('A requisição foi cancelada');
               } else {
                 setStatus("error");
-                console.log('Error: ', thrown);
-                console.log(thrown.message);
+                setMessage(error.message);
               }
             });
           }}
