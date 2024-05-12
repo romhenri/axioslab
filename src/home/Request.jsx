@@ -43,7 +43,9 @@ export const Request = () => {
               if (axios.isCancel(thrown)) {
                 setStatus("canceled");
               } else {
-                // Handle other errors
+                setStatus("error");
+                console.log('Error: ', thrown);
+                console.log(thrown.message);
               }
             });
           }}

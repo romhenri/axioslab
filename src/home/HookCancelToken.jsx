@@ -42,7 +42,9 @@ export const Request = () => {
               if (isCancel(error)) {
                 console.log('A requisição foi cancelada');
               } else {
-                console.log('Erro: ', error);
+                setStatus("error");
+                console.log('Error: ', thrown);
+                console.log(thrown.message);
               }
             });
           }}
