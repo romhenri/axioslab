@@ -14,7 +14,7 @@ const Button = (
 ) => {
   return (
     <button
-      className={classMap[type] + " w-24"}
+      className={classMap[type] + " w-64"}
       onClick={onClick}
     >
       {text}
