@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Button from "../components/base/Button";
-import MsgBox from "../components/base/MensBox";
+import MsgBox from "../components/base/MsgBox";
 import StatusLight from "../components/StatusLight";
 
 export const Request = () => {
@@ -15,6 +15,7 @@ export const Request = () => {
       className=""
     >
       <div className="flex flex-col items-center gap-4 m-8">
+        <h1>Request Axios with Cancel Token</h1>
 
         <StatusLight
           status={status}
