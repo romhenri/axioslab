@@ -1,5 +1,11 @@
 import { NavLink } from 'react-router-dom';
+import Dropdown from '../base/Dropdown.jsx';
 import Logo from '../icons/Logo.jsx';
+
+const menuLinks = [
+  { label: "fetchCancelToken", path: "/fetchCancelToken" },
+  { label: "useCancelToken", path: "/useCancelToken" },
+];
 
 const NavBar = () => (
   <nav className="max-w-[1080px] m-auto flex justify-between items-center p-4">
@@ -18,14 +24,13 @@ const NavBar = () => (
         to="/" 
         className="hover:text-blue-400 navlink"
         >
-        Default
+        Home
       </NavLink>
-      <NavLink 
-        to="/useCancelToken" 
-        className="hover:text-blue-400 navlink"
-        >
-        useCancelToken
-      </NavLink>
+      
+      <Dropdown
+        label="Cancel Methods"
+        links={menuLinks}
+      />
     </div>
   </nav>
 );
